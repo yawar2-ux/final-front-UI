@@ -57,7 +57,7 @@ export function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element 
       onClose={onClose}
       open={open}
     >
-      <Stack spacing={2} sx={{ p: 3 }}>
+      {/* <Stack spacing={2} sx={{ p: 3 }}>
         <Box component={RouterLink} href={paths.home} sx={{ display: 'inline-flex' }}>
           <Logo color="light" height={32} width={122} />
         </Box>
@@ -82,7 +82,7 @@ export function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element 
           </Box>
           <CaretUpDownIcon />
         </Box>
-      </Stack>
+      </Stack> */}
       <Divider sx={{ borderColor: 'var(--mui-palette-neutral-700)' }} />
       <Box component="nav" sx={{ flex: '1 1 auto', p: '12px' }}>
         {renderNavItems({ pathname, items: navItems })}
@@ -91,14 +91,14 @@ export function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element 
       <Stack spacing={2} sx={{ p: '12px' }}>
     
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <Box
+          {/* <Box
             component="img"
             alt="Pro version"
             src="/assets/devias-kit-pro.png"
             sx={{ height: 'auto', width: '160px' }}
-          />
+          /> */}
         </Box>
-        <Button
+        {/* <Button
           component="a"
           endIcon={<ArrowSquareUpRightIcon fontSize="var(--icon-fontSize-md)" />}
           fullWidth
@@ -108,7 +108,7 @@ export function MobileNav({ open, onClose }: MobileNavProps): React.JSX.Element 
           variant="contained"
         >
         
-        </Button>
+        </Button> */}
       </Stack>
     </Drawer>
   );

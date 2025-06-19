@@ -27,7 +27,7 @@ export interface HeaderProps {
   loading: boolean;
   onRefresh: () => void;
 }
-
+// How my filter properties should be
 export interface FiltersProps {
   theme: any;
   loading: boolean;

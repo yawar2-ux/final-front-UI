@@ -10,14 +10,16 @@ import EmailTable from './EmailTable';
 import EmailDialog from './EmailDialog';
 import { Email, Filters } from './types';
 
+// why is it empty I dont know
 interface EmailDashboardProps {
   // Add any props that EmailDashboard component expects
 }
 
 const EmailDashboard: React.FC<EmailDashboardProps> = (): ReactElement => {
   // State hooks at the top level of the component
+  //I have to get idea about hooks
   const theme = useTheme();
-  const [emails, setEmails] = useState<Email[]>([]);
+  const [emails, setEmails] = useState<Email[]>([]);// I have some idea
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState<number>(0);
@@ -35,36 +37,37 @@ const EmailDashboard: React.FC<EmailDashboardProps> = (): ReactElement => {
     date_after: '',
     date_before: ''
   });
-  const [searchEmail, setSearchEmail] = useState<string>('');
+  const [searchEmail, setSearchEmail] = useState<string>('');//useState is ahook but I dont know
 
-  const fetchEmails = useCallback(async () => {
+  const fetchEmails = useCallback(async () => {// we use call back untill filters are not changed
     try {
       setLoading(true);
-      setError(null);
-      setHasSearched(true);
+      setError(null);// clear any old error
+      setHasSearched(true);// search was made
+      //difficult to understand
       const params = new URLSearchParams({
         max_results: filters.max_results.toString(),
         is_unread: filters.is_unread.toString(),
         include_spam: filters.include_spam.toString(),
-        ...(searchEmail && { sender: searchEmail }),
+        ...(searchEmail && { sender: searchEmail }),// I think it checks condition
         ...(filters.query && { query: filters.query }),
         ...(filters.date_after && { date_after: filters.date_after }),
         ...(filters.date_before && { date_before: filters.date_before })
       });
-      const response = await fetch(`http://127.0.0.1:8000/rag_doc/Automated_email_response/api/fetch-emails?${params.toString()}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}${process.env.NEXT_PUBLIC_API_ENDPOINT}?${params.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to fetch emails');
       }
       const data = await response.json();
       setEmails(data.emails || []);
-    } catch (err) {
+    } catch (err) { // if anything goes wrong
       const errorMessage = err instanceof Error ? err.message : 'An unknown error occurred';
       setError(errorMessage);
       console.error('Error fetching emails:', err);
     } finally {
-      setLoading(false);
+      setLoading(false); // loading spinner stop
     }
-  }, [filters, searchEmail]);
+  }, [filters, searchEmail]); // i dont know
 
   const handleSort = (property: string | number | symbol) => {
     const emailProperty = property as keyof Email;
@@ -73,7 +76,7 @@ const EmailDashboard: React.FC<EmailDashboardProps> = (): ReactElement => {
     setOrderBy(emailProperty);
   };
 
-  const handleChangePage = (_event: unknown, newPage: number) => {
+  const handleChangePage = (_event: unknown, newPage: number) => {// event unknown I dk
     setPage(newPage);
   };
 
@@ -104,7 +107,7 @@ const EmailDashboard: React.FC<EmailDashboardProps> = (): ReactElement => {
     });
     fetchEmails();
   };
-
+//update the filter
   const handleFilterChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
     setFilters((prevFilters: Filters) => ({
       ...prevFilters,
